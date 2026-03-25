@@ -1,15 +1,20 @@
-import { useEffect } from "react"
+
 import { client } from "./shared/api/client"
+import { useQuery } from "@tanstack/react-query"
 
 function App() {
 
-  useEffect(() => {
-    (async function () {
+  const query = useQuery({
+    queryKey: ['playlists'],
+    queryFn: async () => {
       const response = await client.GET('/playlists')
       const data = response.data
-      console.log('data: ', data)
-    })()
-  }, [])
+      return data
+    }
+  })
+
+  console.log('query: ', query)
+
   return (
     <>
       React App
