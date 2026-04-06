@@ -10,5 +10,5 @@ COPY . .
 
 EXPOSE 5173
 
-# Флаг --host обязателен для Docker
+# Flag --host is required for Docker
 CMD ["npm", "run", "dev", "--", "--host"]
