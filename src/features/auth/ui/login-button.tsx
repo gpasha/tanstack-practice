@@ -1,32 +1,13 @@
-import { useMutation } from "@tanstack/react-query"
-import { baseUrl, client } from "../../../shared/api/client"
+import { baseUrl } from "../../../shared/api/client"
+import { useLoginMutation } from "../api/use-login-mutation"
 
 const callbackUrl = 'http://localhost:3000/oauth/callback'
 
 export const LoginButton = () => {
-
-  const mutation = useMutation({
-    mutationFn: async ({ code }: { code: string }) => {
-      const response = await client.POST('/auth/login', {
-        body: {
-          code,
-          redirectUri: callbackUrl,
-          accessTokenTTL: '1d',
-          rememberMe: true
-        }
-      })
-
-      return response.data;
-    },
-    onSuccess: (data) => {
-      localStorage.setItem('musicfun-access-token', data?.accessToken ?? '')
-      localStorage.setItem('musicfun-refresh-token', data?.refreshToken ?? '')
-    }
-  })
+  const mutation = useLoginMutation()
 
   const handleLoginClick = () => {
     window.addEventListener('message', handleAuthMessage)
-    // mutation.mutate({ code: '???' })
     window.open(
       `${baseUrl}/auth/oauth-redirect?callbackUrl=${callbackUrl}`,
       'apihub-oauth2',

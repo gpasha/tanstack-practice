@@ -6,3 +6,9 @@ body {
 a {
   color: #9c9c9c;
 }
+
+button, input[type="submit"] {
+  background-color: white;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
